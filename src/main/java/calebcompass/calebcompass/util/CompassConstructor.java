@@ -186,11 +186,20 @@ public class CompassConstructor {
             bar.setProgress(1F);
             return;
         }
+        if(player.getLocation().getWorld() == location.getTarget().getWorld()) {
+            location.getOrigin().setWorld(player.getLocation().getWorld());
+        } else {
+            bar.setProgress(1F);
+            return;
+        }
+
         double dist = location.getOrigin().distanceSquared(location.getTarget());
         double newDist = player.getLocation().distanceSquared(location.getTarget());
         double travel = newDist / dist;
 
         if (travel >= 1F) travel = 1F;
+
+        double formattedBossBarProgress1 = 1F - travel;
 
         if (checkCoords(player.getLocation(), location.getTarget())) {
             bar.setProgress(1F);

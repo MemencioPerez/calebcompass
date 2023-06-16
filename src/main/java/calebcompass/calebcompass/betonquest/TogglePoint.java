@@ -2,12 +2,13 @@ package calebcompass.calebcompass.betonquest;
 
 import calebcompass.calebcompass.SavePoints.SavePointConfig;
 import calebcompass.calebcompass.util.CompassInstance;
+import org.betonquest.betonquest.api.profiles.OnlineProfile;
+import org.betonquest.betonquest.api.profiles.Profile;
 import org.bukkit.entity.Player;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.QuestEvent;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
-import org.betonquest.betonquest.utils.PlayerConverter;
 
 public class TogglePoint extends QuestEvent {
 
@@ -26,8 +27,9 @@ public class TogglePoint extends QuestEvent {
     }
 
     @Override
-    protected Void execute(String playerID) throws QuestRuntimeException {
-        Player player = PlayerConverter.getPlayer(playerID);
+    protected Void execute(Profile profile) throws QuestRuntimeException {
+        OnlineProfile onlineProfile = profile.getOnlineProfile().get();
+        Player player = onlineProfile.getPlayer();
         SavePointConfig.getInstance().togglePlayerPoint(player.getUniqueId(), name, toToggle);
 
         return null;

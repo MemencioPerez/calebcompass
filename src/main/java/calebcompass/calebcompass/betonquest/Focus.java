@@ -4,12 +4,13 @@ import calebcompass.calebcompass.CalebCompass;
 import calebcompass.calebcompass.SavePoints.SavePointConfig;
 import calebcompass.calebcompass.util.CompassInstance;
 import calebcompass.calebcompass.util.CompassLocation;
+import org.betonquest.betonquest.api.profiles.OnlineProfile;
+import org.betonquest.betonquest.api.profiles.Profile;
 import org.bukkit.entity.Player;
 import org.betonquest.betonquest.Instruction;
 import org.betonquest.betonquest.api.QuestEvent;
 import org.betonquest.betonquest.exceptions.InstructionParseException;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
-import org.betonquest.betonquest.utils.PlayerConverter;
 
 public class Focus extends QuestEvent {
 
@@ -23,8 +24,10 @@ public class Focus extends QuestEvent {
     }
 
     @Override
-    protected Void execute(String playerID) throws QuestRuntimeException {
-        Player player = PlayerConverter.getPlayer(playerID);
+    protected Void execute(Profile profile) throws QuestRuntimeException {
+
+        OnlineProfile onlineProfile = profile.getOnlineProfile().get();
+        Player player = onlineProfile.getPlayer();
         CompassLocation loc = CompassInstance.getInstance().getCompassLocation(player);
         if (player.getWorld().equals(SavePointConfig.getInstance().getPointFromName(name).getLoc1().getWorld())) {
             if (loc == null) {
