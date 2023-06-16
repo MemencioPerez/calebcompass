@@ -199,8 +199,6 @@ public class CompassConstructor {
 
         if (travel >= 1F) travel = 1F;
 
-        double formattedBossBarProgress1 = 1F - travel;
-
         if (checkCoords(player.getLocation(), location.getTarget())) {
             bar.setProgress(1F);
             return;
