@@ -186,9 +186,17 @@ public class CompassConstructor {
             bar.setProgress(1F);
             return;
         }
-        if(player.getLocation().getWorld() == location.getTarget().getWorld()) {
-            location.getOrigin().setWorld(player.getLocation().getWorld());
-        } else {
+
+        boolean isPlayerInTargetLocWorld = player.getLocation().getWorld() == location.getTarget().getWorld();
+        boolean isOriginLocWorldSameAsTargetLoc = location.getOrigin().getWorld() == location.getTarget().getWorld();
+
+        if(isPlayerInTargetLocWorld && !isOriginLocWorldSameAsTargetLoc) {
+            location.setOrigin(player.getLocation());
+        } else if (!isPlayerInTargetLocWorld && isOriginLocWorldSameAsTargetLoc) {
+            location.setOrigin(player.getLocation());
+            bar.setProgress(1F);
+            return;
+        } else if (!isPlayerInTargetLocWorld && !isOriginLocWorldSameAsTargetLoc) {
             bar.setProgress(1F);
             return;
         }
