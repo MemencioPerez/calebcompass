@@ -187,16 +187,12 @@ public class CompassConstructor {
             return;
         }
 
-        boolean isPlayerInTargetLocWorld = player.getLocation().getWorld() == location.getTarget().getWorld();
-        boolean isOriginLocWorldSameAsTargetLoc = location.getOrigin().getWorld() == location.getTarget().getWorld();
+        boolean isPlayerInTargetLocWorld = player.getLocation().getWorld().equals(location.getTarget().getWorld());
+        boolean isOriginLocWorldSameAsTargetLoc = location.getOrigin().getWorld().equals(location.getTarget().getWorld());
 
         if(isPlayerInTargetLocWorld && !isOriginLocWorldSameAsTargetLoc) {
             location.setOrigin(player.getLocation());
-        } else if (!isPlayerInTargetLocWorld && isOriginLocWorldSameAsTargetLoc) {
-            location.setOrigin(player.getLocation());
-            bar.setProgress(1F);
-            return;
-        } else if (!isPlayerInTargetLocWorld && !isOriginLocWorldSameAsTargetLoc) {
+        } else if(!isPlayerInTargetLocWorld && !isOriginLocWorldSameAsTargetLoc || !isPlayerInTargetLocWorld && isOriginLocWorldSameAsTargetLoc) {
             bar.setProgress(1F);
             return;
         }
